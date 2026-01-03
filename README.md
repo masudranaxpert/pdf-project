@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PDF Tools Dashboard - Next.js
 
-## Getting Started
+A modern, professional PDF manipulation and conversion tools platform built with **Next.js 14+ App Router**, **TypeScript**, **Tailwind CSS**, and **shadcn/ui**.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Modern Stack**: Next.js 14+ with App Router, TypeScript, Tailwind CSS
+- **UI Components**: Beautiful shadcn/ui components with Radix UI  
+- **Theme Support**: Light/Dark mode with next-themes
+- **PDF Tools**: 
+  - Modify & Edit (Merge, Split,Compress, Bookmarks)
+  - Export PDF (to JPG, PNG, HTML, Markdown, JSON)
+  - Create PDF (from Excel, Images, Markdown)
+  - Security (Password Protect, Unlock)
+- **Responsive Design**: Mobile-first, fully responsive layout
+- **Type-Safe**: Full TypeScript support
+
+## 📁 Project Structure
+
+```
+.agent/workflows/      # Workflow documentation
+app/                   # Next.js App Router
+  ├── layout.tsx       # Root layout with providers
+  ├── page.tsx         # Home page  
+  ├── not-found.tsx    # 404 page
+  ├── providers.tsx    # Client providers
+  ├── globals.css      # Global styles
+  └── tool/[toolId]/   # Dynamic tool pages
+      └── page.tsx
+components/            # React components
+data/                  # Static data (tools, categories)
+hooks/                 # Custom React hooks
+lib/                   # Utility functions
+types/                 # TypeScript types
+public/                # Static assets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18+ 
+- npm or yarn
 
-## Learn More
+### Installation
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Install dependencies
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Run development server
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deploy on Vercel
+### Build for Production
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+# Create production build
+npm run build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Start production server
+npm start
+```
+
+## 📝 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+
+## 🎨 Tech Stack
+
+- **Framework**: Next.js 15+
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui + Radix UI
+- **Icons**: Lucide React
+- **Theme**: next-themes
+- **State Management**: React Query
+
+## 📄 License
+
+This project is open source and available under the MIT License.
