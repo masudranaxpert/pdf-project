@@ -10,7 +10,7 @@ export function Footer() {
               <div className="bg-primary rounded-lg p-2">
                 <FileText className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="font-bold text-xl">PDFJar</span>
+              <span className="font-bold text-xl">PDFBoss</span>
             </div>
             <p className="text-sm text-muted-foreground">
               {
@@ -99,7 +99,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>{"© 2025 PDFJar. All rights reserved. Made with ♥ for PDF lovers."}</p>
+          <p>{"© 2025 PDFBoss. All rights reserved. Made with ♥ for PDF lovers."}</p>
         </div>
       </div>
     </footer>
