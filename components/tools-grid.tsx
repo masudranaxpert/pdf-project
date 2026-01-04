@@ -88,18 +88,24 @@ const tools = [
 
 export function ToolsGrid() {
     return (
-        <section id="tools" className="container mx-auto px-4 py-24">
-            <div className="mb-12 text-center">
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-                    Most Popular Tools
+        <section id="tools" className="container mx-auto px-4 py-32 relative">
+            {/* Background elements */}
+            <div className="premium-blur top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-primary/5" />
+
+            <div className="mb-20 text-center relative z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-widest mb-4">
+                    Toolbox
+                </div>
+                <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl mb-6">
+                    Professional <span className="text-primary">PDF Solutions</span>
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    We offer a comprehensive suite of tools to handle all your PDF needs.
-                    Simple, fast, and secure.
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                    A comprehensive suite of high-performance tools to manage, convert, and protect
+                    your documents with unmatched ease.
                 </p>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 relative z-10">
                 {tools.map((tool) => (
                     <ToolCard
                         key={tool.title}

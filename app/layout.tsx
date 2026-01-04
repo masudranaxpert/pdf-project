@@ -34,18 +34,35 @@ export const metadata: Metadata = {
   },
 }
 
+import { ThemeProvider } from "@/components/theme-provider"
+import { AppSidebar } from "@/components/app-sidebar"
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased bg-premium min-h-screen`}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <Analytics />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`font-sans antialiased bg-background min-h-screen relative overflow-x-hidden`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="flex min-h-screen bg-premium overflow-hidden font-sans">
+            <AppSidebar />
+            <div className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto bg-transparent relative z-10">
+              <Header />
+              <main className="flex-1 relative">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </div>
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )
