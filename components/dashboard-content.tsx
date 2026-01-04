@@ -3,16 +3,14 @@ import { tools, toolCategories } from '@/data/tools';
 import { CategorySection } from './category-section';
 import { FileX } from 'lucide-react';
 
-interface DashboardContentProps {
-  activeCategory: string | null;
-  searchQuery: string;
-}
+import { useDashboardState } from '@/hooks/use-dashboard-state';
 
 /**
  * DashboardContent Component
  * Main content area displaying filtered tools by category
  */
-export function DashboardContent({ activeCategory, searchQuery }: DashboardContentProps) {
+export function DashboardContent() {
+  const { activeCategory, searchQuery } = useDashboardState();
   const filteredTools = useMemo(() => {
     let result = tools;
 

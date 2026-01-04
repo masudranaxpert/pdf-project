@@ -17,10 +17,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 
-interface AppSidebarProps {
-  activeCategory: string | null;
-  onCategoryChange: (category: string | null) => void;
-}
+import { useDashboardState } from '@/hooks/use-dashboard-state';
 
 const navItems = [
   { id: null, title: 'All Tools', icon: Home },
@@ -34,7 +31,8 @@ const navItems = [
  * AppSidebar Component
  * Navigation sidebar for PDF tool categories with collapse functionality
  */
-export function AppSidebar({ activeCategory, onCategoryChange }: AppSidebarProps) {
+export function AppSidebar() {
+  const { activeCategory, setActiveCategory } = useDashboardState();
   const router = useRouter();
   const pathname = usePathname();
   const { state, toggleSidebar } = useSidebar();
@@ -45,7 +43,7 @@ export function AppSidebar({ activeCategory, onCategoryChange }: AppSidebarProps
     if (pathname !== '/') {
       router.push('/');
     }
-    onCategoryChange(categoryId);
+    setActiveCategory(categoryId);
   };
 
   return (
@@ -55,11 +53,14 @@ export function AppSidebar({ activeCategory, onCategoryChange }: AppSidebarProps
     >
       <SidebarHeader className={cn(
         "border-b border-sidebar-border transition-all duration-300",
-        isCollapsed ? "p-3" : "p-5"
+        isCollapsed ? "p-2" : "p-5"
       )}>
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-            <FileText className="w-5 h-5 text-primary-foreground" />
+        <div className={cn("flex items-center", isCollapsed ? "justify-center" : "gap-3")}>
+          <div className={cn(
+            "rounded-xl bg-primary flex items-center justify-center flex-shrink-0 transition-all duration-300",
+            isCollapsed ? "w-8 h-8" : "w-10 h-10"
+          )}>
+            <FileText className={cn("text-primary-foreground transition-all", isCollapsed ? "w-4 h-4" : "w-5 h-5")} />
           </div>
           {!isCollapsed && (
             <div className="overflow-hidden">
@@ -72,7 +73,7 @@ export function AppSidebar({ activeCategory, onCategoryChange }: AppSidebarProps
 
       <SidebarContent className={cn(
         "transition-all duration-300",
-        isCollapsed ? "px-2 py-3" : "px-3 py-4"
+        isCollapsed ? "px-0 py-2" : "px-3 py-4"
       )}>
         <SidebarGroup>
           {!isCollapsed && (
@@ -81,21 +82,19 @@ export function AppSidebar({ activeCategory, onCategoryChange }: AppSidebarProps
             </SidebarGroupLabel>
           )}
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className={cn(isCollapsed && "items-center gap-2")}>
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.id ?? 'all'}>
                   <SidebarMenuButton
                     onClick={() => handleCategoryClick(item.id)}
                     tooltip={isCollapsed ? item.title : undefined}
+                    isActive={activeCategory === item.id && pathname === '/'}
                     className={cn(
-                      "w-full justify-start gap-3 rounded-lg transition-colors",
-                      isCollapsed ? "px-2.5 py-2.5" : "px-3 py-2.5",
-                      activeCategory === item.id && pathname === '/'
-                        ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                        : "text-sidebar-foreground hover:bg-sidebar-accent/50"
+                      "w-full transition-colors",
+                      !isCollapsed ? "justify-start gap-3 px-3 py-2.5 rounded-lg" : "justify-center rounded-md"
                     )}
                   >
-                    <item.icon className="w-4 h-4 flex-shrink-0" />
+                    <item.icon className={cn("flex-shrink-0", isCollapsed ? "w-5 h-5" : "w-4 h-4")} />
                     {!isCollapsed && <span className="truncate">{item.title}</span>}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
