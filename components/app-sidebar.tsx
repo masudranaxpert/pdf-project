@@ -1,134 +1,135 @@
-"use client";
+"use client"
 
-import { FileText, FileEdit, FileOutput, FileInput, Shield, Home, PanelLeftClose, PanelLeft } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { useRouter, usePathname } from 'next/navigation';
+import * as React from "react"
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
+    ChevronRight,
+    FileText,
+    LayoutDashboard,
+    ChevronDown,
+    Search,
+    Settings,
+    HelpCircle,
+    PanelLeftClose,
+    PanelLeftOpen
+} from "lucide-react"
+import { cn } from "@/lib/utils"
+import { toolCategories } from "@/lib/tool-categories"
+import { toolIcons } from "@/lib/tool-icons"
+import { Button } from "@/components/ui/button"
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
 
-interface AppSidebarProps {
-  activeCategory: string | null;
-  onCategoryChange: (category: string | null) => void;
-}
+export function AppSidebar() {
+    const [isCollapsed, setIsCollapsed] = React.useState(false)
 
-const navItems = [
-  { id: null, title: 'All Tools', icon: Home },
-  { id: 'modification', title: 'Modify & Edit', icon: FileEdit },
-  { id: 'export', title: 'Export PDF', icon: FileOutput },
-  { id: 'import', title: 'Create PDF', icon: FileInput },
-  { id: 'security', title: 'Security', icon: Shield },
-];
-
-/**
- * AppSidebar Component
- * Navigation sidebar for PDF tool categories with collapse functionality
- */
-export function AppSidebar({ activeCategory, onCategoryChange }: AppSidebarProps) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const { state, toggleSidebar } = useSidebar();
-  const isCollapsed = state === 'collapsed';
-
-  const handleCategoryClick = (categoryId: string | null) => {
-    // Navigate to home if not already there
-    if (pathname !== '/') {
-      router.push('/');
-    }
-    onCategoryChange(categoryId);
-  };
-
-  return (
-    <Sidebar
-      className="border-r border-sidebar-border transition-all duration-300"
-      collapsible="icon"
-    >
-      <SidebarHeader className={cn(
-        "border-b border-sidebar-border transition-all duration-300",
-        isCollapsed ? "p-3" : "p-5"
-      )}>
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-            <FileText className="w-5 h-5 text-primary-foreground" />
-          </div>
-          {!isCollapsed && (
-            <div className="overflow-hidden">
-              <h1 className="font-semibold text-sidebar-foreground truncate">PDF Tools</h1>
-              <p className="text-xs text-muted-foreground truncate">Professional Suite</p>
-            </div>
-          )}
-        </div>
-      </SidebarHeader>
-
-      <SidebarContent className={cn(
-        "transition-all duration-300",
-        isCollapsed ? "px-2 py-3" : "px-3 py-4"
-      )}>
-        <SidebarGroup>
-          {!isCollapsed && (
-            <SidebarGroupLabel className="text-xs font-medium text-muted-foreground px-3 mb-2">
-              Categories
-            </SidebarGroupLabel>
-          )}
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.id ?? 'all'}>
-                  <SidebarMenuButton
-                    onClick={() => handleCategoryClick(item.id)}
-                    tooltip={isCollapsed ? item.title : undefined}
-                    className={cn(
-                      "w-full justify-start gap-3 rounded-lg transition-colors",
-                      isCollapsed ? "px-2.5 py-2.5" : "px-3 py-2.5",
-                      activeCategory === item.id && pathname === '/'
-                        ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                        : "text-sidebar-foreground hover:bg-sidebar-accent/50"
-                    )}
-                  >
-                    <item.icon className="w-4 h-4 flex-shrink-0" />
-                    {!isCollapsed && <span className="truncate">{item.title}</span>}
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-
-      {/* Collapse Button */}
-      <div className={cn(
-        "mt-auto border-t border-sidebar-border",
-        isCollapsed ? "p-2" : "p-3"
-      )}>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={toggleSidebar}
-          className={cn(
-            "w-full gap-2 text-muted-foreground hover:text-foreground",
-            isCollapsed ? "justify-center px-2" : "justify-start"
-          )}
+    return (
+        <aside
+            className={cn(
+                "hidden lg:flex flex-col h-screen sticky top-0 border-r border-primary/5 bg-background/20 backdrop-blur-[100px] transition-all duration-500 ease-in-out z-50",
+                isCollapsed ? "w-[80px]" : "w-[280px]"
+            )}
         >
-          {isCollapsed ? (
-            <PanelLeft className="w-4 h-4" />
-          ) : (
-            <>
-              <PanelLeftClose className="w-4 h-4" />
-              <span>Collapse</span>
-            </>
-          )}
-        </Button>
-      </div>
-    </Sidebar>
-  );
+            {/* Sidebar Header - Logo */}
+            <div className="h-16 flex items-center px-6 border-b border-primary/5">
+                <a href="/" className="flex items-center gap-3 group">
+                    <div className="bg-primary rounded-xl p-2 shadow-lg shadow-primary/20 group-hover:rotate-6 transition-transform">
+                        <FileText className="h-5 w-5 text-white" />
+                    </div>
+                    {!isCollapsed && (
+                        <span className="font-black text-xl tracking-tighter text-foreground whitespace-nowrap opacity-100 transition-opacity duration-300">
+                            PDF<span className="text-primary">BOSS</span>
+                        </span>
+                    )}
+                </a>
+            </div>
+
+            {/* Sidebar Content */}
+            <div className="flex-1 overflow-y-auto overflow-x-hidden py-6 px-4 custom-scrollbar">
+                <div className="space-y-6">
+                    {/* Dashboard Link */}
+                    <div className="space-y-1">
+                        <a
+                            href="/"
+                            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-primary bg-primary/5 hover:bg-primary/10 transition-all"
+                        >
+                            <LayoutDashboard className="h-5 w-5 shrink-0" />
+                            {!isCollapsed && <span>Dashboard</span>}
+                        </a>
+                    </div>
+
+                    {/* Tool Categories */}
+                    <div className="space-y-1">
+                        {!isCollapsed && (
+                            <p className="px-3 text-[10px] font-black text-muted-foreground/60 uppercase tracking-[0.2em] mb-3">
+                                Toolbox Category
+                            </p>
+                        )}
+
+                        <Accordion type="multiple" defaultValue={["item-0"]} className="w-full space-y-1">
+                            {toolCategories.map((category, idx) => (
+                                <AccordionItem key={idx} value={`item-${idx}`} className="border-none">
+                                    <AccordionTrigger
+                                        className={cn(
+                                            "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-muted-foreground hover:text-foreground hover:bg-primary/5 transition-all !transition-none outline-none",
+                                            isCollapsed && "justify-center"
+                                        )}
+                                        showChevron={!isCollapsed}
+                                    >
+                                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                                            {idx === 0 ? <FileText className="h-5 w-5 shrink-0" /> : <LayoutDashboard className="h-5 w-5 shrink-0" />}
+                                            {!isCollapsed && <span className="truncate">{category.label}</span>}
+                                        </div>
+                                    </AccordionTrigger>
+                                    {!isCollapsed && (
+                                        <AccordionContent className="pt-1 pb-2 px-2 space-y-0.5 animate-none">
+                                            {category.tools.map((tool, toolIdx) => {
+                                                // @ts-ignore
+                                                const Icon = toolIcons[tool.href]
+                                                return (
+                                                    <a
+                                                        key={toolIdx}
+                                                        href={tool.href}
+                                                        className="flex items-center gap-3 px-8 py-2 rounded-lg text-[13px] font-medium text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all group"
+                                                    >
+                                                        <span className="flex-1 truncate">{tool.name}</span>
+                                                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                                                    </a>
+                                                )
+                                            })}
+                                        </AccordionContent>
+                                    )}
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
+                    </div>
+                </div>
+            </div>
+
+            {/* Sidebar Footer */}
+            <div className="p-4 border-t border-primary/5 space-y-2">
+                {!isCollapsed && (
+                    <div className="flex items-center gap-2 p-3 rounded-2xl bg-primary/5 border border-primary/10 mb-4 animate-in fade-in slide-in-from-bottom-2">
+
+
+                    </div>
+                )}
+
+                <Button
+                    variant="ghost"
+                    className={cn(
+                        "w-full h-12 rounded-xl text-muted-foreground hover:text-foreground hover:bg-primary/5 transition-all text-sm font-bold gap-3 px-3",
+                        isCollapsed && "justify-center"
+                    )}
+                    onClick={() => setIsCollapsed(!isCollapsed)}
+                >
+                    {isCollapsed ? <PanelLeftOpen className="h-5 w-5" /> : <PanelLeftClose className="h-5 w-5" />}
+                    {!isCollapsed && <span className="flex-1 text-left">Collapse Sidebar</span>}
+                </Button>
+            </div>
+        </aside>
+    )
 }
