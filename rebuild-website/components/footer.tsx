@@ -6,11 +6,11 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="bg-primary rounded-lg p-2">
-                <FileText className="h-5 w-5 text-primary-foreground" />
+            <div className="flex items-center gap-2 mb-4 group">
+              <div className="bg-orange-500 rounded-lg p-2 group-hover:bg-orange-600 transition-colors">
+                <FileText className="h-5 w-5 text-white" />
               </div>
-              <span className="font-bold text-xl">PDFBoss</span>
+              <span className="font-bold text-xl tracking-tight">PDFBoss</span>
             </div>
             <p className="text-sm text-muted-foreground">
               {
