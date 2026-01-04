@@ -106,9 +106,9 @@
 }
 
 @layer base {
-  /* html {
+  html {
     font-family: 'Inter', system-ui, sans-serif;
-  } */
+  }
 
   body {
     @apply bg-background text-foreground antialiased;
@@ -128,4 +128,3 @@
     animation-duration: 150ms;
   }
 }
-

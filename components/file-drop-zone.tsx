@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useState } from 'react';
-import Image from 'next/image';
 import { Upload, FileText, X, File } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -67,14 +66,7 @@ export function FileDropZone({
           {/* Preview */}
           <div className="w-20 h-20 rounded-lg bg-muted flex items-center justify-center overflow-hidden flex-shrink-0">
             {preview ? (
-              <Image
-                src={preview}
-                alt="Preview"
-                className="w-full h-full object-cover"
-                width={80}
-                height={80}
-                unoptimized
-              />
+              <img src={preview} alt="Preview" className="w-full h-full object-cover" />
             ) : (
               <FileText className="w-8 h-8 text-primary" />
             )}
